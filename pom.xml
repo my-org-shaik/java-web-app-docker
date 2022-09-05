@@ -24,7 +24,7 @@
 		<log4j.version>1.2.17</log4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<sonar.host.url>http://13.233.4.80:9000/</sonar.host.url>
+		<sonar.host.url>http://15.206.91.222:9000/</sonar.host.url>
 		<sonar.login>admin</sonar.login>
 		<sonar.password>admin</sonar.password>
 	</properties>
@@ -104,12 +104,12 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>webapp Releases Nexus Repository</name>
-	      <url>http://43.205.178.116:8081/repository/maven_release/</url>
+	      <url>http://52.66.5.3:8081/repository/maven_release/</url>
 	    </repository>
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>webapp Snapshot Nexus Repository </name>
-	      <url>http://43.205.178.116:8081/repository/maven-snapshots/</url>
+	      <url>http://52.66.5.3:8081/repository/maven_snapshot/</url>
 	    </snapshotRepository>
 	</distributionManagement>
 	
