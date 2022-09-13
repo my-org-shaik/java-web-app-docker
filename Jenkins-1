@@ -1,0 +1,37 @@
+node{
+    def MavenHome=tool name:"maven_3.8.6"
+      echo "GitHub BranhName ${env.BRANCH_NAME}"
+      echo "Jenkins Job Number ${env.BUILD_NUMBER}"
+      echo "Jenkins Node Name ${env.NODE_NAME}"
+  
+      echo "Jenkins Home ${env.JENKINS_HOME}"
+      echo "Jenkins URL ${env.JENKINS_URL}"
+      echo "JOB Name ${env.JOB_NAME}"
+    
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '5', artifactNumToKeepStr: '3', daysToKeepStr: '2', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([githubPush()])])
+    
+    stage('CheckoutFromGitHub'){
+        git credentialsId: 'e32ced7f-20e6-48e4-99e0-7ec3b7a90e04', url: 'https://github.com/my-org-shaik/java-web-app-docker.git'
+    }
+    
+    stage('Build'){
+        sh "${MavenHome}/bin/mvn clean package"
+    }
+    
+    stage ('SonarQube Report'){
+        sh "${MavenHome}/bin/mvn sonar:sonar"
+    }    
+    
+    stage ('DeployToNexus')
+        sh "${MavenHome}/bin/mvn clean deploy"
+        
+    stage ('DiployToTOMCAT'){
+        sshagent(['cddda53e-0353-4dd0-b88b-23f4f0c57816']) {
+        sh "scp -o StrictHostKeyChecking=no target/java-web-app-0.0.1-SNAPSHOT.war ec2-user@3.109.185.16:/opt/tomcat/webapps/"
+        }
+    }
+    stage ('email_Notification'){
+        emailext body: '', subject: 'Build_got success', to: 'subhaniit9@gmail.com'
+    }
+}
+
