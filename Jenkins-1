@@ -1,4 +1,4 @@
-node{
+node ('Flipkart'){
     def MavenHome=tool name:"maven_3.8.6"
       echo "GitHub BranhName ${env.BRANCH_NAME}"
       echo "Jenkins Job Number ${env.BUILD_NUMBER}"
@@ -27,7 +27,7 @@ node{
         
     stage ('DiployToTOMCAT'){
         sshagent(['cddda53e-0353-4dd0-b88b-23f4f0c57816']) {
-        sh "scp -o StrictHostKeyChecking=no target/java-web-app-0.0.1-SNAPSHOT.war ec2-user@3.109.185.16:/opt/tomcat/webapps/"
+        sh "scp -o StrictHostKeyChecking=no target/java-web-app-0.0.1-SNAPSHOT.war ec2-user@43.205.255.208:/opt/tomcat/webapps/"
         }
     }
     stage ('email_Notification'){
