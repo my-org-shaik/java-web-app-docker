@@ -1,4 +1,4 @@
-node('Amazon'){
+node('Amazon','Flipkart'){
     def MavenHome=tool name:"maven_3.8.6"
       echo "GitHub BranhName ${env.BRANCH_NAME}"
       echo "Jenkins Job Number ${env.BUILD_NUMBER}"
